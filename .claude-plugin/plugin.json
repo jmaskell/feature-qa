@@ -1,0 +1,8 @@
+{
+  "name": "feature-qa",
+  "description": "Find the defects a product owner finds in manual QA, before they look.",
+  "version": "0.1.0",
+  "author": { "name": "James Maskell" },
+  "license": "MIT",
+  "experimental": { "evals": "evals" }
+}

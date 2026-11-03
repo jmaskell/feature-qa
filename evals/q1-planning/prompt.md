@@ -1,0 +1,1 @@
+The property page (docs/plans/7-property-page) is designed and the build has not started. Plan its QA so the build can be checked. The owner is not available. Write the QA plan files into qa/. End your reply with anything you need from the owner.

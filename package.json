@@ -1,0 +1,15 @@
+{
+  "name": "claude-feature-qa",
+  "private": true,
+  "type": "module",
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "check:plugin": "node scripts/check-plugin.mjs",
+    "test": "npm run check:plugin && npm run typecheck && npm run test:unit && npm run test:e2e",
+    "test:unit": "npm -w @feature-qa/kit run test:unit",
+    "test:e2e": "npm -w @feature-qa/kit run test:e2e",
+    "typecheck": "npm -w @feature-qa/kit run typecheck",
+    "fixture": "node fixtures/lettings-app/server.mjs",
+    "evals:make-cache": "node evals/fixtures/make-cache.mjs"
+  }
+}

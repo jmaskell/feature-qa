@@ -1,0 +1,1 @@
+Owner QA finding on /properties: the add button says "Add Property". The app uses sentence case. Ratchet this finding so the QA pass catches it from now on. The owner is not available. Stop when done.

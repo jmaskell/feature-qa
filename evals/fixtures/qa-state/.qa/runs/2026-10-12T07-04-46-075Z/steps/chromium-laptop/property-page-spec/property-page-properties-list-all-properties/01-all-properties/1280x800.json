@@ -1,0 +1,51 @@
+{
+  "id": "chromium-laptop/property-page-spec/property-page-properties-list-all-properties/01-all-properties/1280x800",
+  "name": "All properties",
+  "route": "/properties",
+  "viewport": "1280x800",
+  "project": "chromium-laptop",
+  "screenshot": "screenshots/chromium-laptop/property-page-spec/property-page-properties-list-all-properties/01-all-properties/1280x800.png",
+  "text": [
+    "Harbour Lettings",
+    "Properties",
+    "Tenants",
+    "Switch role",
+    "Properties",
+    "Add property",
+    "12 Harbour Row, Penzance",
+    "£950 a month",
+    "Let",
+    "Tenant: Grace Hopper",
+    "Next inspection: 12 Nov 2026",
+    "3 Mill Lane, Hebden Bridge",
+    "£720 a month",
+    "Vacant",
+    "Tenant: None",
+    "Next inspection: None",
+    "Flat 4, 88 Long Street, Bristol",
+    "£1100 a month",
+    "Let",
+    "Tenant: Zoë Brontë-Okafor",
+    "Next inspection: None",
+    "Harbour Lettings is a made-up company used for testing."
+  ],
+  "names": [
+    "Harbour Lettings",
+    "Main",
+    "Properties",
+    "Tenants",
+    "Switch role",
+    "Add property",
+    "12 Harbour Row, Penzance",
+    "3 Mill Lane, Hebden Bridge",
+    "Flat 4, 88 Long Street, Bristol"
+  ],
+  "title": "Properties — Harbour Lettings",
+  "aria": "- banner:\n  - link \"Harbour Lettings\":\n    - /url: /\n  - navigation \"Main\":\n    - link \"Properties\":\n      - /url: /properties\n    - link \"Tenants\":\n      - /url: /tenants\n    - link \"Switch role\":\n      - /url: /sign-in\n- main:\n  - heading \"Properties\" [level=1]\n  - button \"Add property\"\n  - list:\n    - listitem:\n      - link \"12 Harbour Row, Penzance\":\n        - /url: /properties/p1\n      - text: \"£950 a month Let Tenant: Grace Hopper Next inspection: 12 Nov 2026\"\n    - listitem:\n      - link \"3 Mill Lane, Hebden Bridge\":\n        - /url: /properties/p2\n      - text: \"£720 a month Vacant Tenant: None Next inspection: None\"\n    - listitem:\n      - link \"Flat 4, 88 Long Street, Bristol\":\n        - /url: /properties/p3\n      - text: \"£1100 a month Let Tenant: Zoë Brontë-Okafor Next inspection: None\"\n- contentinfo: Harbour Lettings is a made-up company used for testing.",
+  "findings": [],
+  "state": "Properties list: All properties",
+  "criteria": [
+    "AC1"
+  ],
+  "hash": "c9451b967eb0c02b6400777afcbbfe9516d0fac3c666fced35406a05ee225cfd"
+}

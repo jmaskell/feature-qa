@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+set -euo pipefail; bash "$(dirname "$0")/../scaffold-common.sh"

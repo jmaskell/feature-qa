@@ -1,0 +1,15 @@
+node_modules/
+test-results/
+playwright-report/
+.qa/
+.superpowers/
+evals/results/
+evals/.browsers-path
+!evals/fixtures/qa-state/.qa/
+
+# The API key for eval runs. Never commit it.
+evals/.env
+
+# Project notes and banned words that name private projects. Never commit them.
+docs/private/
+scripts/banned-words.local.txt

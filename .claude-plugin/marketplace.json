@@ -1,0 +1,6 @@
+{
+  "name": "claude-feature-qa",
+  "description": "Automated feature QA for Claude Code: scripted checks first, model judges only on changed screens.",
+  "owner": { "name": "James Maskell" },
+  "plugins": [{ "name": "feature-qa", "source": "./", "description": "Feature QA skills and checks" }]
+}

@@ -1,0 +1,47 @@
+{
+  "id": "chromium-laptop/property-page-spec/property-page-property-page-vacant/01-vacant/1280x800",
+  "name": "Vacant",
+  "route": "/properties/p2",
+  "viewport": "1280x800",
+  "project": "chromium-laptop",
+  "screenshot": "screenshots/chromium-laptop/property-page-spec/property-page-property-page-vacant/01-vacant/1280x800.png",
+  "text": [
+    "Harbour Lettings",
+    "Properties",
+    "Tenants",
+    "Switch role",
+    "3 Mill Lane, Hebden Bridge",
+    "Facts",
+    "Address",
+    "3 Mill Lane, Hebden Bridge",
+    "Monthly rent",
+    "£720 a month",
+    "Status",
+    "Vacant",
+    "Rent history",
+    "Month",
+    "Paid",
+    "October 2026",
+    "£720",
+    "Tenant",
+    "None",
+    "Harbour Lettings is a made-up company used for testing."
+  ],
+  "names": [
+    "Harbour Lettings",
+    "Main",
+    "Properties",
+    "Tenants",
+    "Switch role",
+    "Rent history"
+  ],
+  "title": "Property details — Harbour Lettings",
+  "aria": "- banner:\n  - link \"Harbour Lettings\":\n    - /url: /\n  - navigation \"Main\":\n    - link \"Properties\":\n      - /url: /properties\n    - link \"Tenants\":\n      - /url: /tenants\n    - link \"Switch role\":\n      - /url: /sign-in\n- main:\n  - heading \"3 Mill Lane, Hebden Bridge\" [level=1]\n  - heading \"Facts\" [level=2]\n  - term: Address\n  - definition: 3 Mill Lane, Hebden Bridge\n  - term: Monthly rent\n  - definition: £720 a month\n  - term: Status\n  - definition: Vacant\n  - heading \"Rent history\" [level=2]\n  - grid \"Rent history\":\n    - row \"Month Paid\":\n      - columnheader \"Month\"\n      - columnheader \"Paid\"\n    - row \"October 2026 £720\":\n      - gridcell \"October 2026\"\n      - gridcell \"£720\"\n  - heading \"Tenant\" [level=2]\n  - paragraph: None\n- contentinfo: Harbour Lettings is a made-up company used for testing.",
+  "findings": [],
+  "state": "Property page: Vacant",
+  "criteria": [
+    "AC2",
+    "AC3"
+  ],
+  "hash": "3e749da63ccf56067ed4ae28f129b514ce1ebf4fa2a700c87fea13511e50e0ff"
+}
