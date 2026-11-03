@@ -9,7 +9,7 @@ mkdir -p app && cp -R "$repo/fixtures/lettings-app/." app/
 # Node strips the types of the kit only outside node_modules, so the kit goes to vendor/ with a link to it.
 cp -R "$repo/node_modules" node_modules
 mkdir -p vendor/qa-kit && cp -R "$repo/packages/qa-kit/package.json" "$repo/packages/qa-kit/src" vendor/qa-kit/
-rm node_modules/@feature-qa/kit && ln -s ../../vendor/qa-kit node_modules/@feature-qa/kit
+rm node_modules/@jmaskell/feature-qa-kit && ln -s ../../vendor/qa-kit node_modules/@jmaskell/feature-qa-kit
 if [ -f "$here/.browsers-path" ]; then cp "$here/.browsers-path" .browsers-path; fi
 # The harbour project reads this marker: no web server, the app is served inside the browser (eval-sandbox.ts).
 : > .eval-sandbox

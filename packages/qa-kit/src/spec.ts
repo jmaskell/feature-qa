@@ -44,7 +44,7 @@ export function specSkeleton(input: { feature: string; configImport: string; sta
   const lines = [
     `// QA spec skeleton for ${comment(input.feature)}. Made by "qa skeleton".`,
     `// Each test is test.fixme until it reaches its state from a named seed scenario and asserts the expected values.`,
-    `import { createQaTest } from "@feature-qa/kit";`,
+    `import { createQaTest } from "@jmaskell/feature-qa-kit";`,
     `import config from ${lit(input.configImport)};`,
     ``,
     `const test = createQaTest(config);`,

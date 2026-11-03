@@ -143,4 +143,4 @@ The first adapter is for a private project. It holds:
 
 - Real identity providers in tests.
 - Runs against hosted production systems.
-- Publishing the package or the plugin. The owner decides that later.
+- Publishing to the public npm registry. The kit is in GitHub Packages (`@jmaskell/feature-qa-kit`). The plugin installs from the GitHub repository's marketplace.

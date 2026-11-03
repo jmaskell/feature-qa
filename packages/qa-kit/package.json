@@ -1,10 +1,16 @@
 {
-  "name": "@feature-qa/kit",
+  "name": "@jmaskell/feature-qa-kit",
   "version": "0.1.0",
+  "description": "Scripted QA checks on Playwright: smoke, layout, interaction, accessibility, copy, conformance, leaks and access.",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/jmaskell/feature-qa.git", "directory": "packages/qa-kit" },
   "type": "module",
+  "engines": { "node": ">=22.12" },
   "bin": { "qa": "./src/cli.ts" },
   "exports": { ".": "./src/index.ts" },
+  "publishConfig": { "registry": "https://npm.pkg.github.com" },
   "scripts": {
+    "build": "node scripts/build.mjs",
     "test:unit": "vitest run",
     "test:e2e": "playwright test",
     "typecheck": "tsc --noEmit -p ."

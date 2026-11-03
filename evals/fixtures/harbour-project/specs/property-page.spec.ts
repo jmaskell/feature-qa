@@ -1,6 +1,6 @@
 // QA spec for the property page (docs/plans/7-property-page). One test for each state of design.md.
 import { expect } from "@playwright/test";
-import { createQaTest } from "@feature-qa/kit";
+import { createQaTest } from "@jmaskell/feature-qa-kit";
 import config from "../qa.config.ts";
 import { inEvalSandbox } from "../eval-sandbox.ts";
 

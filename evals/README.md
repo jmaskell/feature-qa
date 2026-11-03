@@ -53,8 +53,8 @@ Confirmed on Claude Code 2.1.287 by the q0 spike (2026-10-12), unless the line s
 - Every behaviour case needs `--scaffold`. Bash, Write and Edit need `--allow-tools Bash Write Edit`.
 - Each run gets a fresh `HOME` and a sandbox. The sandbox can read the workspace and each directory on the operator's `PATH`. It cannot read the rest of the operator's home.
 - The arm with the plugin can also read the plugin folder. The arm without it cannot. So the scaffold copies `node_modules` and the kit into the workspace: links into the repo work in one arm only, and the without arm then fails for a harness reason. The first RED run (2026-10-12, kept in `evals/results/red-v1/`, not in git) had this fault.
-- Even in the with arm, the sandbox refuses each symlink inside the plugin folder (`node_modules/.bin/*`, `node_modules/@feature-qa/kit`). The copies avoid this too.
-- Node strips the types of the kit only outside `node_modules`. The scaffold copies the kit to `vendor/qa-kit/` and links `node_modules/@feature-qa/kit` to it.
+- Even in the with arm, the sandbox refuses each symlink inside the plugin folder (`node_modules/.bin/*`, `node_modules/@jmaskell/feature-qa-kit`). The copies avoid this too.
+- Node strips the types of the kit only outside `node_modules`. The scaffold copies the kit to `vendor/qa-kit/` and links `node_modules/@jmaskell/feature-qa-kit` to it.
 - The sandbox cannot read through a symlink under `HOME` (for example `node/24` that points to `node/24.21.0`). `run.sh` puts the real node folder on `PATH`.
 - `npx` needs the npm package folder, so `run.sh` puts it on `PATH`. In the workspace, `.npmrc` sets `script-shell=/bin/sh` (the eval `PATH` can lack `/bin`, and npx then fails with `spawn EPERM`), `offline=true` and `update-notifier=false` (the sandbox has no network).
 - Playwright finds no browsers under the fresh `HOME`. `run.sh` puts the browser folder on `PATH`, so the sandbox can read it, and `.browsers-path` sets `PLAYWRIGHT_BROWSERS_PATH`.

@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from "node:fs";
 import { defineConfig } from "@playwright/test";
-import { ensureQaRunId, qaProjects } from "@feature-qa/kit";
+import { ensureQaRunId, qaProjects } from "@jmaskell/feature-qa-kit";
 import { IN_EVAL_SANDBOX } from "./eval-sandbox.ts";
 
 // The eval sandbox gives each run a fresh HOME, so Playwright cannot find its browsers there.

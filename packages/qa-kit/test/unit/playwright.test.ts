@@ -47,18 +47,18 @@ describe("the kit in a CommonJS project", () => {
     const dir = mkdtempSync(join(tmpdir(), "qa-cjs-"));
     writeFileSync(join(dir, "package.json"), "{}");
     mkdirSync(join(dir, "node_modules", "@playwright"), { recursive: true });
-    mkdirSync(join(dir, "node_modules", "@feature-qa"), { recursive: true });
+    mkdirSync(join(dir, "node_modules", "@jmaskell"), { recursive: true });
     symlinkSync(join(repo, "node_modules/@playwright/test"), join(dir, "node_modules/@playwright/test"));
     symlinkSync(join(repo, "node_modules/playwright"), join(dir, "node_modules/playwright"));
     symlinkSync(join(repo, "node_modules/playwright-core"), join(dir, "node_modules/playwright-core"));
-    symlinkSync(join(repo, "packages/qa-kit"), join(dir, "node_modules/@feature-qa/kit"));
+    symlinkSync(join(repo, "packages/qa-kit"), join(dir, "node_modules/@jmaskell/feature-qa-kit"));
     writeFileSync(join(dir, "playwright.config.ts"), [
-      'import { qaProjects, ensureQaRunId } from "@feature-qa/kit";',
+      'import { qaProjects, ensureQaRunId } from "@jmaskell/feature-qa-kit";',
       "ensureQaRunId();",
       'export default { testDir: ".", testMatch: "*.spec.ts", projects: qaProjects({ browsers: ["chromium"] }) };',
     ].join("\n"));
     writeFileSync(join(dir, "cjs.spec.ts"), [
-      'import { createQaTest, defineQaConfig } from "@feature-qa/kit";',
+      'import { createQaTest, defineQaConfig } from "@jmaskell/feature-qa-kit";',
       'const config = defineQaConfig({ baseURL: "http://127.0.0.1:1", routes: [], roles: [], scenarios: [], accessMatrix: {} });',
       "const test = createQaTest(config);",
       'test("loads in a CommonJS project", async () => {});',

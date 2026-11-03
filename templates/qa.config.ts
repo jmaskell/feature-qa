@@ -2,7 +2,7 @@
 // Copy it to the project root as qa.config.ts. Replace each placeholder with a fact of the project.
 // Remove an optional block that the project does not need.
 import type { Page } from "@playwright/test";
-import { defineQaConfig } from "@feature-qa/kit";
+import { defineQaConfig } from "@jmaskell/feature-qa-kit";
 
 export default defineQaConfig({
   // The address of the local or test app. Never a hosted production system.

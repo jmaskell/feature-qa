@@ -1,0 +1,30 @@
+# Publishes the kit to GitHub Packages when a tag kit-v<version> is pushed.
+name: Publish the kit
+
+on:
+  push:
+    tags: ["kit-v*"]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://npm.pkg.github.com
+          scope: "@jmaskell"
+      - name: Check that the tag matches the kit version
+        run: test "kit-v$(node -p "require('./packages/qa-kit/package.json').version")" = "$GITHUB_REF_NAME"
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium webkit
+      - run: npm test
+      - run: npm run build
+      - run: npm publish packages/qa-kit/build
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,5 +1,5 @@
 import type { Page } from "@playwright/test";
-import { defineQaConfig } from "@feature-qa/kit";
+import { defineQaConfig } from "@jmaskell/feature-qa-kit";
 // @ts-expect-error The fixture app is plain JavaScript and has no types.
 import { KNOWN_VALUES } from "./app/seed.mjs";
 

@@ -82,11 +82,39 @@ The templates for an adopter are in `templates/`: the adapter `qa.config.ts`, wi
 
 ## Add the kit to a project
 
-1. Add `@feature-qa/kit` to the project. The kit is not published to npm. Add it as a `file:` link (for example `"@feature-qa/kit": "file:../claude-feature-qa/packages/qa-kit"`) or as a workspace. It needs `@playwright/test` as a peer dependency. The package exports its TypeScript source (`.ts` files), not JavaScript. Your test runner must transpile it. Playwright and Vitest do this. The project must have `@playwright/test` installed. The kit loads it from the project folder (the current directory), not from its own folder. So a `file:` link does not load a second copy of Playwright. Run Playwright from the project root. The kit works in a project with or without `"type": "module"` in `package.json`.
+1. Add `@jmaskell/feature-qa-kit` to the project. See "Install the kit". It needs `@playwright/test` as a peer dependency. The project must have `@playwright/test` installed. The kit loads it from the project folder (the current directory), not from its own folder. So a `file:` link does not load a second copy of Playwright. Run Playwright from the project root. The kit works in a project with or without `"type": "module"` in `package.json`.
 2. Write one adapter file. In it, export `defineQaConfig({...})`. Give the base URL, the routes, the scenarios and the access matrix. Give the roles, each with a `signIn(page)` function. The role name `anonymous` is reserved for the signed-out visitor, so do not use it. You can also give `designSystem`, `copy`, `a11y` and `ignore`. See "Adapter options".
 3. Call `ensureQaRunId()` at the top of `playwright.config.ts`. Or set `QA_RUN_ID` yourself. Then all workers write to one run directory.
 4. In your specs, use `const test = createQaTest(config, { serverLog })`. `serverLog` is optional. It returns the server log text for the leak scan. In each test, call `qa.step(name, { state, criteria, mock })` after each state. `mock` is the path to the mock region (PNG or HTML), relative to the project root. A judge compares the screenshot with it.
 5. Add `.qa/` to `.gitignore`.
+
+### Install the kit
+
+The kit is in GitHub Packages. Use this way in a cloud session and in CI.
+
+1. Add an `.npmrc` file to the project:
+
+   ```
+   @jmaskell:registry=https://npm.pkg.github.com
+   //npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
+   ```
+
+2. Set `NODE_AUTH_TOKEN` to a GitHub token that can read packages (`read:packages`). In GitHub Actions, `secrets.GITHUB_TOKEN` can do this when the package gives the repository read access.
+3. Run `npm install -D @jmaskell/feature-qa-kit`.
+
+The published package holds compiled JavaScript and type files.
+
+To work on the kit and a project at the same time, link the kit's source folder: `"@jmaskell/feature-qa-kit": "file:../feature-qa/packages/qa-kit"`. A link, or a workspace, uses the TypeScript source (`.ts` files). Playwright and Vitest compile it, because a link keeps it outside `node_modules`.
+
+### Publish the kit
+
+1. Change `version` in `packages/qa-kit/package.json`, and commit.
+2. Push the tag `kit-v<version>`, for example `git tag kit-v0.1.0 && git push origin kit-v0.1.0`.
+
+The workflow `.github/workflows/publish-kit.yml` runs `npm test`, builds the package in `packages/qa-kit/build/` (`npm run build`) and publishes it. It stops when the tag and the version are different.
+The unit test `package.test.ts` packs the build, installs it in `node_modules` of a CommonJS project and of a module project, and runs the `qa` command and a Playwright spec from it.
+
+### What a step records
 
 Each `qa.step` writes `.qa/runs/<run id>/steps/*.json` and a screenshot. The verdict cache is in `.qa/cache`.
 A step captures first: it waits for the web fonts, takes the screenshot with animations stopped, and reads the text, the accessible names, the title and the ARIA snapshot. Then it runs the page checks, because the checks hover, focus, press keys and resize the page.
@@ -110,7 +138,7 @@ Each test signs in again by default. `reuseSignIn(page, key, signIn, { landing }
 
 ```ts
 import { defineConfig } from "@playwright/test";
-import { ensureQaRunId, qaProjects } from "@feature-qa/kit";
+import { ensureQaRunId, qaProjects } from "@jmaskell/feature-qa-kit";
 ensureQaRunId();
 export default defineConfig({ projects: qaProjects({ browsers: ["chromium", "webkit"] }) });
 ```
@@ -315,7 +343,7 @@ The key of a task covers all inputs of the judge. The copy key covers the text a
 
 The flow: run the specs. Run `qa pending` once with all four judges: `--rules` goes only to the copy judge, and `--task` goes only to the feature judges. Give each pending input file to its judge, and dispatch the judges at the same time. Run `qa record` once with all the verdict files. Run `qa report`.
 
-Node strips the types of `src/cli.ts`, and it does this only for files outside `node_modules`. The command runs when the kit is a workspace or a `file:` link (a symlink). A published package needs a build step first.
+From the published package, `qa` runs the compiled `dist/cli.js`. From a workspace or a `file:` link, it runs `src/cli.ts`, and Node strips the types. Node does this only for files outside `node_modules`.
 
 ## Add a check
 
