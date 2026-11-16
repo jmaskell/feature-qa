@@ -1,6 +1,6 @@
 {
   "name": "@jmaskell/feature-qa-kit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Scripted QA checks on Playwright: smoke, layout, interaction, accessibility, copy, conformance, leaks and access.",
   "license": "MIT",
   "repository": { "type": "git", "url": "git+https://github.com/jmaskell/feature-qa.git", "directory": "packages/qa-kit" },
