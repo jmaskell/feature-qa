@@ -35,6 +35,17 @@ export interface QaTestOptions {
 
 let warnedRunId = false;
 
+type SettlePage = { waitForLoadState(state: "load"): Promise<void>; evaluate<R>(fn: () => R | Promise<R>): Promise<R> };
+
+/** Wait for the load event, then for one idle moment of the page (at most 1 second), so the page scripts have run. */
+export async function settle(page: SettlePage): Promise<void> {
+  await page.waitForLoadState("load");
+  await page.evaluate(() => new Promise<void>((done) => {
+    if (typeof requestIdleCallback === "function") requestIdleCallback(() => done(), { timeout: 1000 });
+    else setTimeout(done, 0);
+  }));
+}
+
 function slug(text: string): string {
   return text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80) || "x";
 }
@@ -114,6 +125,10 @@ export function createQaTest(config: QaConfig, options: QaTestOptions = {}) {
         const id = `${testSlugOf(stepProject)}/${String(n).padStart(2, "0")}-${slug(name)}/${viewport}`;
         const screenshot = join("screenshots", `${id}.png`);
         await timed(timings, "fonts", () => page.evaluate(() => document.fonts.ready.then(() => undefined)));
+        // The screenshot hides the caret with a style change on the page. If the change lands before a framework hydrates
+        // the page, the framework reports a mismatch, and the smoke check records it as a console error. So the step
+        // waits for the load event and then for one idle moment of the page before the screenshot.
+        await timed(timings, "settle", () => settle(page));
         await mkdir(dirname(join(dir, screenshot)), { recursive: true });
         const bytes = await timed(timings, "screenshot", () => page.screenshot({ path: join(dir, screenshot), fullPage: opts.fullPage ?? false, animations: "disabled" }));
         // One collection serves the text capture and every page check.

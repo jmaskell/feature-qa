@@ -117,9 +117,9 @@ The unit test `package.test.ts` packs the build, installs it in `node_modules` o
 ### What a step records
 
 Each `qa.step` writes `.qa/runs/<run id>/steps/*.json` and a screenshot. The verdict cache is in `.qa/cache`.
-A step captures first: it waits for the web fonts, takes the screenshot with animations stopped, and reads the text, the accessible names, the title and the ARIA snapshot. Then it runs the page checks, because the checks hover, focus, press keys and resize the page.
+A step captures first: it waits for the web fonts and for the page to settle (the load event, then one idle moment, so a framework has hydrated before the screenshot hides the caret), takes the screenshot with animations stopped, and reads the text, the accessible names, the title and the ARIA snapshot. Then it runs the page checks, because the checks hover, focus, press keys and resize the page.
 The step collects the visible elements once. The text capture and every page check read that one collection. The checks that only read the page run first. The focus, hover and reflow rules run last, because they change the page.
-Each step record has `timings`: the milliseconds of each part of the step (`screenshot`, `collect`, `checks`, `checks.axe`, `checks.interaction.hover` and so on). `qa timings` gives the median, p95 and max of each part over a run.
+Each step record has `timings`: the milliseconds of each part of the step (`settle`, `screenshot`, `collect`, `checks`, `checks.axe`, `checks.interaction.hover` and so on). `qa timings` gives the median, p95 and max of each part over a run.
 A `fail` finding fails the test. A `warn` finding is only recorded. The test goes on after a finding, so one run shows every problem.
 After each test, the fixture writes one more record, `after-test`. It holds the smoke and leak findings of the whole test. Its `timings` give the time of the watchers: `after-test.watch` (the set-up), `after-test.settle` (the wait for late CSP reports, at least 100 ms), `after-test.leaks` and `after-test.ignore`.
 
